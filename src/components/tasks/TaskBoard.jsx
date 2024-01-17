@@ -52,6 +52,11 @@ export default function TaskBoard() {
     setShowAddTask(false);
     setToUpdate(null);
   }
+  //  to delete a task 
+  function onDelete(taskId){
+    const tasksAfterDeleted = tasks.filter(task => task.id !== taskId);
+    setTasks(tasksAfterDeleted);
+  }
   return (
     <section className="mb-20" id="tasks">
       {showAddTask && (
@@ -68,7 +73,7 @@ export default function TaskBoard() {
 
         <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
           <TaskActions handleAddTask={handleAddTask} />
-          <TaskLists tasks={tasks} onEdit={handleEdit} />
+          <TaskLists tasks={tasks} onEdit={handleEdit} onDelete={onDelete} />
         </div>
       </div>
     </section>
