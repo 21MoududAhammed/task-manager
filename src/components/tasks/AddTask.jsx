@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export default function AddTask({ handleCreateNewTask }) {
-  const [task, setTask] = useState({
+export default function AddTask({ onSave, toUpdateTask, onCancel }) {
+  const [task, setTask] = useState(toUpdateTask || {
     id: crypto.randomUUID(),
     title: "",
     description: "",
@@ -9,6 +9,9 @@ export default function AddTask({ handleCreateNewTask }) {
     priority: "",
     isFavorite: false,
   });
+  const [isAdd, setIsAdd] = useState(Object.is(toUpdateTask, null));
+  
+
 
   function handleChange(e) {
     const name = e.target.name;
@@ -89,16 +92,24 @@ export default function AddTask({ handleCreateNewTask }) {
           </div>
         </div>
 
-        <div className="mt-16 flex justify-center lg:mt-20">
+        <div className=" flex justify-between mt-16 flex justify-center lg:mt-20">
+          <button
+           
+            className="rounded bg-red-600 px-4 py-2 text-white transition-all hover:opacity-80"
+            onClick={onCancel}
+            
+          >
+            Cancel
+          </button>
           <button
             type="submit"
             className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
             onClick={(e) => {
               e.preventDefault();
-              handleCreateNewTask(task);
+              onSave(task,isAdd);
             }}
           >
-            Create new Task
+            Save
           </button>
         </div>
       </form>
