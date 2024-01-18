@@ -59,7 +59,7 @@ export default function TaskBoard() {
     setTasks(tasksAfterDeleted);
   }
   // to delete all task
-  function onDeleteAll(){
+  function onDeleteAll() {
     setTasks([]);
   }
   // to favorite or unfavorite
@@ -73,6 +73,14 @@ export default function TaskBoard() {
     });
     setTasks(afterClickingIsFavorite);
   }
+  //  to search based on title text
+  function onSearchTask(value) {
+    console.log(value);
+    const tasksAfterSearching = tasks.filter((task) =>
+      task.title.includes(value)
+    );
+    setTasks(tasksAfterSearching);
+  }
 
   return (
     <section className="mb-20" id="tasks">
@@ -81,11 +89,14 @@ export default function TaskBoard() {
       )}
       <div className="container">
         <div className="p-2 flex justify-end">
-          <SearchTask />
+          <SearchTask onSearchTask={onSearchTask} />
         </div>
 
         <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
-          <TaskActions handleAddTask={handleAddTask} onDeleteAll={onDeleteAll}/>
+          <TaskActions
+            handleAddTask={handleAddTask}
+            onDeleteAll={onDeleteAll}
+          />
           <TaskLists
             tasks={tasks}
             onEdit={handleEdit}
