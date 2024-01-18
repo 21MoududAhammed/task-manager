@@ -3,6 +3,7 @@ import SearchTask from "../SearchTask";
 import TaskActions from "./TaskActions";
 import TaskLists from "./TaskList";
 import AddTask from "./AddTask";
+import NoTaskFound from "../NoTaskFound";
 
 const defaultTask = {
   id: crypto.randomUUID(),
@@ -97,12 +98,15 @@ export default function TaskBoard() {
             handleAddTask={handleAddTask}
             onDeleteAll={onDeleteAll}
           />
-          <TaskLists
-            tasks={tasks}
-            onEdit={handleEdit}
-            onDelete={onDelete}
-            onFavorite={onFavorite}
-          />
+          {
+            tasks.length > 0 ? 
+            (<TaskLists
+              tasks={tasks}
+              onEdit={handleEdit}
+              onDelete={onDelete}
+              onFavorite={onFavorite}
+            />) : <NoTaskFound></NoTaskFound>
+          }
         </div>
       </div>
     </section>
